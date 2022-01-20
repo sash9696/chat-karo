@@ -17,6 +17,8 @@ import {
   } from "@mui/icons-material";
 
 function Sidebar() {
+
+
     return (
         <SidebarContainer>
             <SidebarHeader>
@@ -44,7 +46,7 @@ function Sidebar() {
             <SidebarOption Icon={ExpandMore} title="Channels" />
             
             <hr/>
-            <SidebarOption Icon={Add} title="Add Channel" />
+            <SidebarOption Icon={Add} addChannelOption title="Add Channel"  />
             <SidebarOption  title="React" />
             <SidebarOption  title="Front End" />
             <SidebarOption  title="Software Engineering" />
