@@ -20,7 +20,7 @@ function SidebarOption({Icon, title, addChannelOption, id}) {
         if(id){
             dispatch(enterRoom({
                 roomId: id
-            }) )
+            }))
         }
     }
     return (

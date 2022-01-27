@@ -10,8 +10,7 @@ export const appSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     enterRoom: (state, action) => {
-      
-      state.roomId = action.payload;
+      state.roomId = action.payload.roomId;
     },
     
   },
