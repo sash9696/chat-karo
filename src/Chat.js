@@ -87,6 +87,7 @@ const ChatContainer = styled.div`
     overflow-y: scroll;
     margin-top:50px;
     margin-left:390px;
+    
 
 
 `

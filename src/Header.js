@@ -10,17 +10,21 @@ import { auth } from './firebase';
 
 function Home() {
     const [user] = useAuthState(auth);
-    console.log("user is", user)
+    
 
     return (
             <HeaderContainer>
                 <HeaderLeft>
-                    <HeaderAvatar 
-                    //onclick 
-                        Avatar onClick={()=> auth.signOut()} 
-                            src={user?.photoURL}
-                            alt={user?.displayName}
-                    />
+                    <HeaderLogout onClick={()=> auth.signOut()} >
+                        <HeaderAvatar 
+                            //onclick 
+                                Avatar 
+                                    src={user?.photoURL}
+                                    alt={user?.displayName}
+                            />
+                            <h4>Logout</h4>
+                    </HeaderLogout>
+                        
                     <AccessTimeIcon/>
 
                 </HeaderLeft>
@@ -44,6 +48,16 @@ const HeaderContainer = styled.div`
     position:fixed;
     top:0;
     width:100%
+`;
+const HeaderLogout = styled.div`
+    display: flex;
+    color: white;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+> h4{
+    padding-left:2px;
+}
 `;
 const HeaderLeft = styled.div`
     display:flex;

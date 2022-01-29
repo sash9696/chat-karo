@@ -27,7 +27,7 @@ function ChatInput({channelName, channelId, chatRef}) {
         });
         setInput('');
     }
-    console.log(input);
+    
   return (
     <ChatInputContainer>
         <form>
