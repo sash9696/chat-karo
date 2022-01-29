@@ -16,12 +16,13 @@ import {
     Add
   } from "@mui/icons-material";
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { db } from './firebase';
+import {auth, db } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 function Sidebar() {
 
     const [rooms, loading, error] = useCollection(db.collection('rooms'));
-
+    const [user] = useAuthState(auth);
     return (
         <SidebarContainer>
             <SidebarHeader>
@@ -29,7 +30,7 @@ function Sidebar() {
                     <h2>Team</h2>
                     <h3>
                         <FiberManualRecord />
-                        Sahil Chopra
+                        {user?.displayName}
                     </h3>
                 </SidebarInfo>
                 <Create/>

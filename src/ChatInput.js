@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import firebase from 'firebase/compat/app';
-import { db } from './firebase';
+import { auth, db } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-function ChatInput({channelName, channelId}) {
-
+function ChatInput({channelName, channelId, chatRef}) {
+    const [user] = useAuthState(auth);
     const [input, setInput] = useState('');
 
     const sendMessage = (e) => {
@@ -18,17 +19,24 @@ function ChatInput({channelName, channelId}) {
         db.collection('rooms').doc(channelId).collection('messages').add({
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            user: 'Sahil Chopra',
-            userImage: ''
+            user: user.displayName,
+            userImage: user.photoURL
         })
+        chatRef?.current?.scrollIntoView({
+            behavior: "smooth",
+        });
         setInput('');
     }
     console.log(input);
   return (
     <ChatInputContainer>
         <form>
-            <input value={input} onChange={(e)=> setInput(e.target.value)} placeholder='Message #Room'/>
-            <Button onClick={sendMessage} type='submit'>Send</Button>
+            <input 
+                value={input} 
+                onChange={(e)=> setInput(e.target.value)} 
+                placeholder={channelId ? `Message #${channelName}`: ('Message #room')}/>
+                <Button  onClick={sendMessage} type='submit'>Send</Button>
+            
         </form>
         
     </ChatInputContainer>
@@ -39,13 +47,16 @@ function ChatInput({channelName, channelId}) {
 
 export default ChatInput;
 const ChatInputContainer = styled.div`
-    position: absolute;
+    position: fixed;
     bottom:5%;
     margin-left:50px;
     display:flex;
-   
+
+> form > .MuiButton-root{
+    display:none;
+} 
     
-    > form > input{
+> form > input{
         padding:15px 25px;
         width:900px;
     }
