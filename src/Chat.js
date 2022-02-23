@@ -11,7 +11,7 @@ import Message from './Message';
 
 
 
-function Chat() {
+function Chat({searchName,setSearchName }) {
     const [editMessage, setEditMessage] = useState("")
     const chatRef = useRef(null);
     const roomId = useSelector(selectRoomId);
@@ -48,7 +48,7 @@ function Chat() {
                     </HeaderRight>
                 </Header>
                 <ChatMessages>
-                    {roomMessages?.docs.map((doc) => {
+                    {roomMessages?.docs.filter((name) => name.data().user?.toLowerCase().includes(searchName?.toLowerCase())).map((doc) => {
                         const {message, timestamp, user, userId, userImage, likeBy} = doc.data()
 
                         return(

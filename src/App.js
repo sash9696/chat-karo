@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './Header.js'
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ import { login } from './features/userSlice';
 function App() {
 
   const [user, loading] = useAuthState(auth);
+  const [searchName, setSearchName] = useState("")
 
   const dispatch = useDispatch();
 
@@ -37,11 +38,11 @@ function App() {
       <BrowserRouter>
         {!user ? <Login/> :(
             <>
-            <Header/>
+            <Header searchName={searchName} setSearchName={setSearchName}/>
             <AppBody>
               <Sidebar/>
               <Routes>
-                <Route exact path="/" element={<Chat/>} />
+                <Route exact path="/" element={<Chat searchName={searchName} setSearchName={setSearchName}/>} />
               </Routes>
               
             </AppBody>

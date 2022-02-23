@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
 
 
-function Home() {
+function Home({searchName,setSearchName}) {
     const [user] = useAuthState(auth);
     
 
@@ -30,7 +30,12 @@ function Home() {
                 </HeaderLeft>
                 <HeaderSearch>
                     <SearchIcon/>
-                    <input type='text' placeholder='Search'/>
+                    <input 
+                        value={searchName} 
+                        type='text' 
+                        placeholder='Search'
+                        onChange={e => setSearchName(e.target.value)}
+                    />
                 </HeaderSearch>
                 <HeaderRight>
                     <HelpOutlineIcon/>
