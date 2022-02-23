@@ -48,16 +48,17 @@ function Chat() {
                 </Header>
                 <ChatMessages>
                     {roomMessages?.docs.map((doc) => {
-                        const {message, timestamp, user, userImage} = doc.data()
+                        const {message, timestamp, user, userImage, likeBy} = doc.data()
 
                         return(
                             <Message
                                 key = {doc.id}
+                                id ={doc.id}
                                 message = {message}
                                 timestamp = {timestamp}
                                 user = {user}
                                 userImage = {userImage}
-
+                                likeBy={likeBy}
                             />
                         )
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import MessageOptions from './MessageOptions';
 
-function Message({message, timestamp, user, userImage}) {
+function Message({id,message, timestamp, user, userImage, likeBy}) {
   return (
+      <Container>
       <MessageContainer>
           <img src= {userImage} alt=''/>
           <MessageInfo>
@@ -11,13 +13,21 @@ function Message({message, timestamp, user, userImage}) {
               </h4>
               <p>{message}</p>
           </MessageInfo>
-
+          
       </MessageContainer>
+      <MessageOptions id={id} likeBy={likeBy} />
+      </Container>
   );
 }
 
 export default Message;
+const Container = styled.div`
+display: flex;
+justify-content: space-between;
+padding-right:20px;
+align-items: center;
 
+`
 const MessageContainer = styled.div`
     display:flex;
     align-items:center;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from './Header.js'
 import styled from 'styled-components';
@@ -7,10 +7,30 @@ import Sidebar from './Sidebar';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import { auth } from './firebase.js';
 import Login from './Login.js';
+import { useDispatch } from 'react-redux';
+import { userDetails } from './features/appSlice.js';
+import { login } from './features/userSlice';
 
 function App() {
 
   const [user, loading] = useAuthState(auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(login({
+          email: userAuth.email,
+          uid: userAuth.uid,
+          displayName: userAuth.displayName,
+
+        }))
+      } 
+    })
+  
+  }, [])
+
   return (
     
     <div className="app">

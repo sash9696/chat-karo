@@ -4,14 +4,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { auth, provider } from './firebase';
 import {signInWithPopup } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { userDetails } from './features/appSlice';
+import { login } from './features/userSlice';
+
 
 function Login() {
-    
-    
-
+    const dispatch = useDispatch()
     const signIn = (e) =>{
         e.preventDefault()
-        signInWithPopup(auth, provider).catch((error)=> alert(error.message))
+        signInWithPopup(auth, provider)
+        .then(userAuth => {
+            dispatch(login({
+                email: userAuth?.currentUser.email,
+                uid: userAuth?.currentUser.uid,
+                displayName: userAuth?.currentUser.displayName,
+            }))
+        })
+        .catch((error)=> alert(error.message))
     }
   return (
     <LoginContainer>
@@ -22,8 +32,6 @@ function Login() {
             <Button onClick={signIn}>Sign In with Google</Button>
         </LoginInnerContainer>
     </LoginContainer>
-
-
   );
 }
 

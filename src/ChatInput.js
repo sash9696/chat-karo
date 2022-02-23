@@ -4,23 +4,28 @@ import Button from '@material-ui/core/Button';
 import firebase from 'firebase/compat/app';
 import { auth, db } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useDispatch } from 'react-redux';
+import { userDetails } from './features/appSlice';
 
 function ChatInput({channelName, channelId, chatRef}) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState('');
 
+    const dispatch = useDispatch();
+    
     const sendMessage = (e) => {
         e.preventDefault();
-        console.log("channelId", channelId)
         
         if(!channelId){
             return false
         }
         db.collection('rooms').doc(channelId).collection('messages').add({
+            userId: user.uid,
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             user: user.displayName,
-            userImage: user.photoURL
+            userImage: user.photoURL,
+            likeBy : []
         })
         chatRef?.current?.scrollIntoView({
             behavior: "smooth",
