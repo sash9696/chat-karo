@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined'
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -12,6 +12,7 @@ import Message from './Message';
 
 
 function Chat() {
+    const [editMessage, setEditMessage] = useState("")
     const chatRef = useRef(null);
     const roomId = useSelector(selectRoomId);
     const [roomDetails] = useDocument(
@@ -48,7 +49,7 @@ function Chat() {
                 </Header>
                 <ChatMessages>
                     {roomMessages?.docs.map((doc) => {
-                        const {message, timestamp, user, userImage, likeBy} = doc.data()
+                        const {message, timestamp, user, userId, userImage, likeBy} = doc.data()
 
                         return(
                             <Message
@@ -57,8 +58,11 @@ function Chat() {
                                 message = {message}
                                 timestamp = {timestamp}
                                 user = {user}
+                                userId={userId}
                                 userImage = {userImage}
                                 likeBy={likeBy}
+                                editMessage= {editMessage}
+                                setEditMessage= {setEditMessage}
                             />
                         )
 

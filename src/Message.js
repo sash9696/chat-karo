@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MessageOptions from './MessageOptions';
 
-function Message({id,message, timestamp, user, userImage, likeBy}) {
+function Message({id,message, timestamp, user, userId, userImage, likeBy, editMessage,setEditMessage}) {
   return (
       <Container>
       <MessageContainer>
@@ -15,7 +15,14 @@ function Message({id,message, timestamp, user, userImage, likeBy}) {
           </MessageInfo>
           
       </MessageContainer>
-      <MessageOptions id={id} likeBy={likeBy} />
+      <MessageOptions
+             id={id} 
+             user={user}
+             userId={userId}
+             likeBy={likeBy}
+             editMessage={editMessage}
+             setEditMessage={setEditMessage}
+      />
       </Container>
   );
 }
