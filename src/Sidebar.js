@@ -30,20 +30,20 @@ function Sidebar() {
                     <h2>Team</h2>
                     <h3>
                         <FiberManualRecord />
-                        {user?.displayName}
+                        {user?.displayName || "Guest User"}
                     </h3>
                 </SidebarInfo>
                 <Create/>
             </SidebarHeader>
             
-            <SidebarOption Icon={InsertComment} title="Threads" />
+            {/* <SidebarOption Icon={InsertComment} title="Threads" />
             <SidebarOption Icon={Inbox} title="Mentions & reactions" />
             <SidebarOption Icon={Drafts} title="Saved items" />
             <SidebarOption Icon={BookmarkBorder} title="Channel browser" />
             <SidebarOption Icon={PeopleAlt} title="People & user groups" />
             <SidebarOption Icon={Apps} title="Apps" />
             <SidebarOption Icon={FileCopy} title="File browser" />
-            <SidebarOption Icon={ExpandLess} title="Show less" />
+            <SidebarOption Icon={ExpandLess} title="Show less" /> */}
 
             <hr/>
 
@@ -53,6 +53,7 @@ function Sidebar() {
             <SidebarOption Icon={Add} addChannelOption title="Add Channel"  />
 
             {rooms?.docs.map((doc) => (
+                
                 <SidebarOption  
                     key={doc.id}
                     id={doc.id}

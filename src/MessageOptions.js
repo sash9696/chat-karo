@@ -33,8 +33,7 @@ function MessageOptions({id, userId, likeBy,editMessage, setEditMessage }) {
    const [modalIsOpen, setIsOpen] = React.useState(false);
  
    function openModal() {
-    console.log(user?.uid)
-    console.log(userId)
+    
     if(user.uid == userId){
       setIsOpen(true);
     }
@@ -54,7 +53,7 @@ function MessageOptions({id, userId, likeBy,editMessage, setEditMessage }) {
    }
 
    const likeButton = () => {
-        if(likeBy.includes(user.uid)) {
+        if(likeBy.includes(user?.uid)) {
             decreaseLike()
         }
         else {
@@ -83,7 +82,7 @@ function MessageOptions({id, userId, likeBy,editMessage, setEditMessage }) {
  
  }
   const deleteMessage = () => {
-    if(user.uid == userId){
+    if(user?.uid == userId){
       db.collection('rooms').doc(roomId).collection('messages').doc(id).delete()
     }
     else{
@@ -111,7 +110,7 @@ function MessageOptions({id, userId, likeBy,editMessage, setEditMessage }) {
           <button onClick={updateMessage} >Done</button>
         </form>
       </Modal>
-        {likeBy.includes(user.uid) ? <FavoriteIcon onClick={likeButton} className='p'/>
+        {likeBy.includes(user?.uid) ? <FavoriteIcon onClick={likeButton} className='p'/>
             : <FavoriteBorderIcon onClick={likeButton} className='p'/>
         }
             <span className='span'>{likeBy.length}</span>

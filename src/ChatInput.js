@@ -10,7 +10,7 @@ import { userDetails } from './features/appSlice';
 function ChatInput({channelName, channelId, chatRef}) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState('');
-
+    
     const dispatch = useDispatch();
     
     const sendMessage = (e) => {
@@ -19,12 +19,15 @@ function ChatInput({channelName, channelId, chatRef}) {
         if(!channelId){
             return false
         }
+
+       
+
         db.collection('rooms').doc(channelId).collection('messages').add({
             userId: user.uid,
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            user: user.displayName,
-            userImage: user.photoURL,
+            user: user.displayName || "Guest User" ,
+            userImage: user.photoURL || "",
             likeBy : []
         })
         chatRef?.current?.scrollIntoView({
